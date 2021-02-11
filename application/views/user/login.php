@@ -85,6 +85,6 @@
 <script src="<?= asset_url('assets/ext/fontawesome/js/solid.min.js') ?>"></script>
 <script src="<?= asset_url('assets/js/polyfill.js') ?>"></script>
 <script src="<?= asset_url('assets/js/general_functions.js') ?>"></script>
-<script src="<?= asset_url('assets/js/login.js') ?>"></script>
+<script src="<?= asset_url('assets/js/login-2.js') ?>"></script>
 </body>
 </html>
