@@ -37,13 +37,24 @@
             GeneralFunctions.enableLanguageSelection($('#select-language'));
         });
     </script>
+
+    <?php if(! IS_ADMIN && ! isset($_GET['admin'])): ?>
+        <style>
+            #login-form { display: none; }
+        </style>
+    <?php endif ?>
 </head>
 <body>
 <div id="login-frame" class="frame-container">
-    <h2>Loading scheduler...</h2>
+    <?php if(IS_ADMIN && ! isset($_GET["admin"])): ?>
+        <h2>Loading scheduler...</h2>
+    <?php else: ?>
+        <h2><?= lang('backend_section') ?></h2>
+        <p><?= lang('you_need_to_login') ?></p>
+    <?php endif ?>
     <hr>
     <div class="alert d-none"></div>
-    <form id="login-form" style="display: none;">
+    <form id="login-form">
         <div class="form-group">
             <label for="username"><?= lang('username') ?></label>
             <input type="text" id="username"

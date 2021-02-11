@@ -89,5 +89,8 @@ define('AVAILABILITIES_TYPE_FIXED', 'fixed');
 
 define('EVENT_MINIMUM_DURATION', 5); // Minutes
 
+// PXW
+define('IS_ADMIN', FALSE);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
