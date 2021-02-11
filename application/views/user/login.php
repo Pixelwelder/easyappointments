@@ -40,11 +40,10 @@
 </head>
 <body>
 <div id="login-frame" class="frame-container">
-    <h2><?= lang('backend_section') ?></h2>
-    <p><?= lang('you_need_to_login') ?></p>
+    <h2>Loading scheduler...</h2>
     <hr>
     <div class="alert d-none"></div>
-    <form id="login-form">
+    <form id="login-form" style="display: none;">
         <div class="form-group">
             <label for="username"><?= lang('username') ?></label>
             <input type="text" id="username"
