@@ -177,6 +177,16 @@ window.FrontendBook = window.FrontendBook || {};
             }
 
         }
+
+        // Select provider if we've got it.
+        var urlParams = new URLSearchParams(window.location.search);
+        var provider = urlParams.get('provider');
+        if (provider) {
+            $selectProvider
+                .val(selectedProviderId)
+                .trigger('change');
+        }
+        console.log('PROVIDER', provider);
     };
 
     /**

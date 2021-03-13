@@ -47,10 +47,10 @@
 <body>
 <div id="login-frame" class="frame-container">
     <?php if(IS_ADMIN && ! isset($_GET["admin"])): ?>
-        <h2>Loading scheduler...</h2>
-    <?php else: ?>
         <h2><?= lang('backend_section') ?></h2>
         <p><?= lang('you_need_to_login') ?></p>
+    <?php else: ?>
+        <h2>Loading scheduler...</h2>
     <?php endif ?>
     <hr>
     <div class="alert d-none"></div>

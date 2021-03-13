@@ -1,9 +1,7 @@
 $(function () {
     'use strict';
 
-
     var onMessage = function(event){
-        console.log('onMessage', event.data);
         if (event.data.type === 'login') {
             $('#username').val(event.data.username);
             $('#password').val(event.data.password);
@@ -38,8 +36,10 @@ $(function () {
         $.post(url, data)
             .done(function (response) {
                 if (response === GlobalVariables.AJAX_SUCCESS) {
+                    parent.postMessage({ type: 'scheduler-login-logged-in', value: true }, '*');
                     window.location.href = GlobalVariables.destUrl;
                 } else {
+                    parent.postMessage({ type: 'scheduler-login-logged-in', value: false }, '*');
                     $alert.text(EALang['login_failed']);
                     $alert
                         .removeClass('d-none alert-danger alert-success')
@@ -49,4 +49,7 @@ $(function () {
     }
 
     $loginForm.on('submit', onLoginFormSubmit);
+
+    // Let the parent page know we're here.
+    parent.postMessage({ type: 'scheduler-login-ready', value: true }, '*');
 });

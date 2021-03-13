@@ -26,29 +26,33 @@
 </head>
 <body>
 <div id="logout-frame" class="frame-container">
-    <h3><?= lang('log_out') ?></h3>
-    <p>
-        <?= lang('logout_success') ?>
-    </p>
+    <?php if (IS_ADMIN || isset($_GET["admin"])): ?>
+        <h3><?= lang('log_out') ?></h3>
+        <p>
+            <?= lang('logout_success') ?>
+        </p>
 
-    <br>
+        <br>
 
-    <a href="<?= site_url() ?>" class="btn btn-success btn-large">
-        <i class="fas fa-calendar-alt mr-2"></i>
-        <?= lang('book_appointment_title') ?>
-    </a>
+        <a href="<?= site_url() ?>" class="btn btn-success btn-large">
+            <i class="fas fa-calendar-alt mr-2"></i>
+            <?= lang('book_appointment_title') ?>
+        </a>
 
-    <a href="<?= site_url('backend') ?>" class="btn btn-outline-secondary btn-large">
-        <i class="fas fa-wrench mr-2"></i>
-        <?= lang('backend_section') ?>
-    </a>
+        <a href="<?= site_url('backend') ?>" class="btn btn-outline-secondary btn-large">
+            <i class="fas fa-wrench mr-2"></i>
+            <?= lang('backend_section') ?>
+        </a>
 
-    <div class="mt-4">
-        <small>
-            Powered by
-            <a href="https://easyappointments.org">Easy!Appointments</a>
-        </small>
-    </div>
+        <div class="mt-4">
+            <small>
+                Powered by
+                <a href="https://easyappointments.org">Easy!Appointments</a>
+            </small>
+        </div>
+    <? else: ?>
+        <h3>Logged Out</h3>
+    <? endif; ?>
 </div>
 </body>
 </html>
