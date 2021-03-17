@@ -11,8 +11,7 @@ services:
         ports:
             - "8001:3306"
     server:
-        build: .
-        image: easyappointments-server:latest
+        image: us.gcr.io/coachyard-dev/easy-appts:SNAPSHOT
         container_name: easyappointments-server
         depends_on:
             - mysql
