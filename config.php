@@ -30,24 +30,35 @@ class Config {
     // GENERAL SETTINGS
     // ------------------------------------------------------------------------
 
-    const BASE_URL      = 'http://url-to-easyappointments-directory';
+    const BASE_URL      = 'http://localhost:8000';
     const LANGUAGE      = 'english';
-    const DEBUG_MODE    = FALSE;
+    const DEBUG_MODE    = TRUE;
 
     // ------------------------------------------------------------------------
     // DATABASE SETTINGS
     // ------------------------------------------------------------------------
 
-    const DB_HOST       = 'localhost';
-    const DB_NAME       = 'easyappointments';
-    const DB_USERNAME   = 'root';
-    const DB_PASSWORD   = 'root';
+    public static function getDbHost() {
+        return $_ENV['DB_HOST'];
+    }
 
+    public static function getDbName() {
+        return $_ENV['DB_NAME'];
+    }
+
+    public static function getDbUsername() {
+        return $_ENV['DB_USERNAME'];
+    }
+
+    public static function getDbPassword() {
+        return $_ENV['DB_PASSWORD'];
+    }
+    
     // ------------------------------------------------------------------------
     // GOOGLE CALENDAR SYNC
     // ------------------------------------------------------------------------
 
-    const GOOGLE_SYNC_FEATURE   = FALSE; // Enter TRUE or FALSE
+    const GOOGLE_SYNC_FEATURE   = FALSE; // You can optionally enable the Google Sync feature.
     const GOOGLE_PRODUCT_NAME   = '';
     const GOOGLE_CLIENT_ID      = '';
     const GOOGLE_CLIENT_SECRET  = '';

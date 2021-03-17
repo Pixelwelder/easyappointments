@@ -13,6 +13,11 @@ services:
     server:
         image: us.gcr.io/coachyard-dev/easy-appts:SNAPSHOT
         container_name: easyappointments-server
+        environment:
+            - DB_HOST=easyappointments-database:3306
+            - DB_NAME=easyappointments
+            - DB_USERNAME=root
+            - DB_PASSWORD=root
         depends_on:
             - mysql
         ports:

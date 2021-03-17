@@ -14,6 +14,11 @@ services:
         build: .
         image: easyappointments-server:latest
         container_name: easyappointments-server
+        environment:
+            - DB_HOST=easyappointments-database:3306
+            - DB_NAME=easyappointments
+            - DB_USERNAME=root
+            - DB_PASSWORD=root
         depends_on:
             - mysql
         ports:
