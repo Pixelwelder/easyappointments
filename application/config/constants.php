@@ -78,7 +78,7 @@ define('DATE_FORMAT_YMD', 'YMD');
 define('TIME_FORMAT_REGULAR', 'regular');
 define('TIME_FORMAT_MILITARY', 'military');
 
-define('MIN_PASSWORD_LENGTH', 7);
+define('MIN_PASSWORD_LENGTH', 6);
 define('ANY_PROVIDER', 'any-provider');
 
 define('CALENDAR_VIEW_DEFAULT', 'default');
