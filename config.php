@@ -30,7 +30,10 @@ class Config {
     // GENERAL SETTINGS
     // ------------------------------------------------------------------------
 
-    const BASE_URL      = 'http://localhost:8000';
+    public static function getBaseUrl() {
+        return $_ENV['BASE_URL'];
+    }
+
     const LANGUAGE      = 'english';
     const DEBUG_MODE    = TRUE;
 
@@ -53,7 +56,7 @@ class Config {
     public static function getDbPassword() {
         return $_ENV['DB_PASSWORD'];
     }
-    
+
     // ------------------------------------------------------------------------
     // GOOGLE CALENDAR SYNC
     // ------------------------------------------------------------------------

@@ -29,3 +29,4 @@
 /metafile
 .DS_Store
 mysql/*
+.env

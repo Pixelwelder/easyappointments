@@ -15,6 +15,7 @@ services:
         image: easyappointments-server:latest
         container_name: easyappointments-server
         environment:
+            - BASE_URL=http://localhost:8000
             - DB_HOST=easyappointments-database:3306
             - DB_NAME=easyappointments
             - DB_USERNAME=root
