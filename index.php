@@ -1,6 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header('P3P: CP="CAO PSA OUR"'); //ADD IN THIS LINE IN ORDER TO SOLVE THE INTERNET EXPLORER ALWAYS GET NEW SESSION ISSUE
+ini_set('session.cookie_samesite', 'None');
+session_set_cookie_params(['samesite' => 'None']);
 /**
  * CodeIgniter
  *
