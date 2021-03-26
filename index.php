@@ -1,7 +1,5 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-ini_set('session.cookie_samesite', 'None');
-session_set_cookie_params(['samesite' => 'None']);
 /**
  * CodeIgniter
  *

@@ -1,3 +1,7 @@
+<?php
+ini_set('session.cookie_samesite', 'None');
+session_set_cookie_params(['samesite' => 'None']);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
