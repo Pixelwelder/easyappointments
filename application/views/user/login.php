@@ -40,7 +40,7 @@
 
     <?php if(! IS_ADMIN && ! isset($_GET['admin'])): ?>
         <style>
-            #login-form { display: none; }
+
         </style>
     <?php endif ?>
 </head>
