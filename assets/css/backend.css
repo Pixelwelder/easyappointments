@@ -289,6 +289,9 @@ body legend {
 
 /* BACKEND CALENDAR PAGE
    -------------------------------------------------------------------- */
+html, body, #calendar-page, #calendar, .fc-view-container, .fc-agenda-view, .fc-agenda-view table {
+    /*height: 100%;*/
+}
 
 #calendar-page {
     padding-top: 0;

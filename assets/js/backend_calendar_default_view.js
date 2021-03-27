@@ -1434,7 +1434,8 @@ window.BackendCalendarDefaultView = window.BackendCalendarDefaultView || {};
                     return;
                 }
 
-                $('#insert-appointment').trigger('click');
+                // $('#insert-appointment').trigger('click');
+                $('#insert-unavailable').trigger('click');
 
                 // Preselect service & provider.
                 var service;

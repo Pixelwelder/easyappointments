@@ -25,6 +25,8 @@ window.BackendCalendarTableView = window.BackendCalendarTableView || {};
     var $filterService;
     var lastFocusedEventData;
 
+    var isAdmin = new URLSearchParams(window.location.search).has('admin');
+
     /**
      * Bind page event handlers.
      */
@@ -409,10 +411,12 @@ window.BackendCalendarTableView = window.BackendCalendarTableView || {};
         });
 
         // Create providers and service filters.
-        $('<label/>', {
-            'text': EALang.provider
-        })
-            .appendTo($calendarHeader);
+        if (isAdmin) {
+            $('<label/>', {
+                'text': EALang.provider
+            })
+                .appendTo($calendarHeader);
+        }
 
         $filterProvider = $('<select/>', {
             'id': 'filter-provider',
@@ -425,7 +429,10 @@ window.BackendCalendarTableView = window.BackendCalendarTableView || {};
                 }
             }
         })
-            .appendTo($calendarHeader);
+
+        if (isAdmin) {
+            $filterProvider.appendTo($calendarHeader);
+        }
 
         if (GlobalVariables.user.role_slug !== Backend.DB_SLUG_PROVIDER) {
             providers.forEach(function (provider) {
@@ -449,10 +456,12 @@ window.BackendCalendarTableView = window.BackendCalendarTableView || {};
             return GlobalVariables.user.role_slug === Backend.DB_SLUG_ADMIN || provider;
         });
 
-        $('<label/>', {
-            'text': EALang.service
-        })
-            .appendTo($calendarHeader);
+        if (isAdmin) {
+            $('<label/>', {
+                'text': EALang.service
+            })
+                .appendTo($calendarHeader);
+        }
 
         $filterService = $('<select/>', {
             'id': 'filter-service',
@@ -465,7 +474,10 @@ window.BackendCalendarTableView = window.BackendCalendarTableView || {};
                 }
             }
         })
-            .appendTo($calendarHeader);
+
+        if (isAdmin) {
+            $filterService.appendTo($calendarHeader);
+        }
 
         services.forEach(function (service) {
             $filterService.append(new Option(service.name, service.id));
@@ -715,11 +727,13 @@ window.BackendCalendarTableView = window.BackendCalendarTableView || {};
             selectable: true,
             selectHelper: true,
             select: function (start, end, jsEvent) {
+                console.log('CLICK');
                 if (!start.hasTime() || !end.hasTime()) {
                     return;
                 }
 
-                $('#insert-appointment').trigger('click');
+                // $('#insert-appointment').trigger('click');
+                $('#insert-unavailable').trigger('click');
 
                 // Preselect service & provider.
                 var $providerColumn = $(jsEvent.target).parents('.provider-column');
@@ -799,10 +813,12 @@ window.BackendCalendarTableView = window.BackendCalendarTableView || {};
 
         $wrapper.fullCalendar('gotoDate', moment(goToDate));
 
-        $('<h6/>', {
-            'text': provider.first_name + ' ' + provider.last_name
-        })
-            .prependTo($providerColumn);
+        if (isAdmin) {
+            $('<h6/>', {
+                'text': provider.first_name + ' ' + provider.last_name
+            })
+                .prependTo($providerColumn);
+        }
     }
 
     function onViewRender(view, element) {

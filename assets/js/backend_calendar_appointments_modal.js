@@ -22,6 +22,8 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
 
     'use strict';
 
+    var isAdmin = new URLSearchParams(window.location.search).has('admin');
+
     function updateTimezone() {
         var providerId = $('#select-provider').val();
 
@@ -115,62 +117,64 @@ window.BackendCalendarAppointmentsModal = window.BackendCalendarAppointmentsModa
          * When the user presses this button, the manage appointment dialog opens and lets the user to
          * create a new appointment.
          */
-        $('#insert-appointment').on('click', function () {
-            $('.popover').remove();
+        if (isAdmin) {
+            $('#insert-appointment').on('click', function () {
+                $('.popover').remove();
 
-            BackendCalendarAppointmentsModal.resetAppointmentDialog();
-            var $dialog = $('#manage-appointment');
+                BackendCalendarAppointmentsModal.resetAppointmentDialog();
+                var $dialog = $('#manage-appointment');
 
-            // Set the selected filter item and find the next appointment time as the default modal values.
-            if ($('#select-filter-item option:selected').attr('type') === 'provider') {
-                var providerId = $('#select-filter-item').val();
+                // Set the selected filter item and find the next appointment time as the default modal values.
+                if ($('#select-filter-item option:selected').attr('type') === 'provider') {
+                    var providerId = $('#select-filter-item').val();
 
-                var providers = GlobalVariables.availableProviders.filter(function (provider) {
-                    return Number(provider.id) === Number(providerId);
+                    var providers = GlobalVariables.availableProviders.filter(function (provider) {
+                        return Number(provider.id) === Number(providerId);
+                    });
+
+                    if (providers.length) {
+                        $dialog.find('#select-service').val(providers[0].services[0]).trigger('change');
+                        $dialog.find('#select-provider').val(providerId);
+                    }
+                } else if ($('#select-filter-item option:selected').attr('type') === 'service') {
+                    $dialog.find('#select-service option[value="' + $('#select-filter-item').val() + '"]')
+                        .prop('selected', true);
+                } else {
+                    $dialog.find('#select-service option:first')
+                        .prop('selected', true)
+                        .trigger('change');
+                }
+
+                var serviceId = $dialog.find('#select-service').val();
+
+                var service = GlobalVariables.availableServices.find(function (availableService) {
+                    return Number(availableService.id) === Number(serviceId);
                 });
 
-                if (providers.length) {
-                    $dialog.find('#select-service').val(providers[0].services[0]).trigger('change');
-                    $dialog.find('#select-provider').val(providerId);
+                var duration = service ? service.duration : 60;
+
+                var start = new Date();
+                var currentMin = parseInt(start.toString('mm'));
+
+                if (currentMin > 0 && currentMin < 15) {
+                    start.set({ 'minute': 15 });
+                } else if (currentMin > 15 && currentMin < 30) {
+                    start.set({ 'minute': 30 });
+                } else if (currentMin > 30 && currentMin < 45) {
+                    start.set({ 'minute': 45 });
+                } else {
+                    start.addHours(1).set({ 'minute': 0 });
                 }
-            } else if ($('#select-filter-item option:selected').attr('type') === 'service') {
-                $dialog.find('#select-service option[value="' + $('#select-filter-item').val() + '"]')
-                    .prop('selected', true);
-            } else {
-                $dialog.find('#select-service option:first')
-                    .prop('selected', true)
-                    .trigger('change');
-            }
 
-            var serviceId = $dialog.find('#select-service').val();
+                $dialog.find('#start-datetime').val(GeneralFunctions.formatDate(start, GlobalVariables.dateFormat, true));
+                $dialog.find('#end-datetime').val(GeneralFunctions.formatDate(start.addMinutes(duration),
+                    GlobalVariables.dateFormat, true));
 
-            var service = GlobalVariables.availableServices.find(function (availableService) {
-                return Number(availableService.id) === Number(serviceId);
+                // Display modal form.
+                $dialog.find('.modal-header h3').text(EALang.new_appointment_title);
+                $dialog.modal('show');
             });
-
-            var duration = service ? service.duration : 60;
-
-            var start = new Date();
-            var currentMin = parseInt(start.toString('mm'));
-
-            if (currentMin > 0 && currentMin < 15) {
-                start.set({'minute': 15});
-            } else if (currentMin > 15 && currentMin < 30) {
-                start.set({'minute': 30});
-            } else if (currentMin > 30 && currentMin < 45) {
-                start.set({'minute': 45});
-            } else {
-                start.addHours(1).set({'minute': 0});
-            }
-
-            $dialog.find('#start-datetime').val(GeneralFunctions.formatDate(start, GlobalVariables.dateFormat, true));
-            $dialog.find('#end-datetime').val(GeneralFunctions.formatDate(start.addMinutes(duration),
-                GlobalVariables.dateFormat, true));
-
-            // Display modal form.
-            $dialog.find('.modal-header h3').text(EALang.new_appointment_title);
-            $dialog.modal('show');
-        });
+        }
 
         /**
          * Event: Pick Existing Customer Button "Click"

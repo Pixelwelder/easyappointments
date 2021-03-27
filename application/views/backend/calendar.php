@@ -71,9 +71,9 @@
 
             <?php if ($privileges[PRIV_APPOINTMENTS]['add'] == TRUE): ?>
                 <div class="btn-group">
-                    <button class="btn btn-light" id="insert-appointment">
+                    <button class="btn btn-light" id="insert-unavailable">
                         <i class="fas fa-plus-square mr-2"></i>
-                        <?= lang('appointment') ?>
+                        <?= lang('unavailable') ?>
                     </button>
 
                     <button class="btn btn-light dropdown-toggle" id="insert-dropdown" data-toggle="dropdown">
@@ -82,9 +82,10 @@
                     </button>
 
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#" id="insert-unavailable">
+
+                        <a class="dropdown-item" href="#" id="insert-appointment">
                             <i class="fas fa-plus-square mr-2"></i>
-                            <?= lang('unavailable') ?>
+                            <?= lang('appointment') ?>
                         </a>
                         <a class="dropdown-item" href="#" id="insert-working-plan-exception"
                             <?= $this->session->userdata('role_slug') !== 'admin' ? 'hidden' : '' ?>>
