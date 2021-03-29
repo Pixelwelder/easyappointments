@@ -31,25 +31,27 @@
             <div id="header">
                 <span id="company-name"><?= $company_name ?></span>
 
-                <div id="steps">
-                    <div id="step-1" class="book-step active-step"
-                         data-tippy-content="<?= lang('service_and_provider') ?>">
-                        <strong>1</strong>
-                    </div>
+                <?php if (IS_ADMIN || isset($_GET["admin"])): ?>
+                    <div id="steps">
+                        <div id="step-1" class="book-step active-step"
+                             data-tippy-content="<?= lang('service_and_provider') ?>">
+                            <strong>1</strong>
+                        </div>
 
-                    <div id="step-2" class="book-step" data-toggle="tooltip"
-                         data-tippy-content="<?= lang('appointment_date_and_time') ?>">
-                        <strong>2</strong>
+                        <div id="step-2" class="book-step" data-toggle="tooltip"
+                             data-tippy-content="<?= lang('appointment_date_and_time') ?>">
+                            <strong>2</strong>
+                        </div>
+                        <div id="step-3" class="book-step" data-toggle="tooltip"
+                             data-tippy-content="<?= lang('customer_information') ?>">
+                            <strong>3</strong>
+                        </div>
+                        <div id="step-4" class="book-step" data-toggle="tooltip"
+                             data-tippy-content="<?= lang('appointment_confirmation') ?>">
+                            <strong>4</strong>
+                        </div>
                     </div>
-                    <div id="step-3" class="book-step" data-toggle="tooltip"
-                         data-tippy-content="<?= lang('customer_information') ?>">
-                        <strong>3</strong>
-                    </div>
-                    <div id="step-4" class="book-step" data-toggle="tooltip"
-                         data-tippy-content="<?= lang('appointment_confirmation') ?>">
-                        <strong>4</strong>
-                    </div>
-                </div>
+                <?php endif; ?>
             </div>
 
             <?php if ($manage_mode): ?>
@@ -225,16 +227,30 @@
                 </div>
 
                 <div class="command-buttons">
-                    <button type="button" id="button-back-2" class="btn button-back btn-outline-secondary"
-                            data-step_index="2">
-                        <i class="fas fa-chevron-left mr-2"></i>
-                        <?= lang('back') ?>
-                    </button>
-                    <button type="button" id="button-next-2" class="btn button-next btn-dark"
-                            data-step_index="2">
-                        <?= lang('next') ?>
-                        <i class="fas fa-chevron-right ml-2"></i>
-                    </button>
+                    <?php if (IS_ADMIN || isset($_GET["admin"])): ?>
+                        <button type="button" id="button-back-2" class="btn button-back btn-outline-secondary"
+                                data-step_index="2">
+                            <i class="fas fa-chevron-left mr-2"></i>
+                            <?= lang('back') ?>
+                        </button>
+                        <button type="button" id="button-next-2" class="btn button-next btn-dark"
+                                data-step_index="2">
+                            <?= lang('next') ?>
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </button>
+                    <?php else: ?>
+                        <button type="button" id="button-cancel" class="btn btn-outline-secondary">
+                            <?= lang('cancel') ?>
+                        </button>
+                        <form id="book-appointment-form" style="display:inline-block" method="post">
+                            <button id="book-appointment-submit" type="button" class="btn btn-success">
+                                <i class="fas fa-check-square mr-2"></i>
+                                <?= ! $manage_mode ? lang('confirm') : lang('update') ?>
+                            </button>
+                            <input type="hidden" name="csrfToken"/>
+                            <input type="hidden" name="post_data"/>
+                        </form>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -394,27 +410,29 @@
 
             <!-- FRAME FOOTER -->
 
-            <div id="frame-footer">
-                <small>
-                    <span class="footer-powered-by">
-                        Powered By
+            <?php if (IS_ADMIN || isset($_GET["admin"])): ?>
+                <div id="frame-footer">
+                    <small>
+                        <span class="footer-powered-by">
+                            Powered By
 
-                        <a href="https://easyappointments.org" target="_blank">Easy!Appointments</a>
-                    </span>
-
-                    <span class="footer-options">
-                        <span id="select-language" class="badge badge-secondary">
-                            <i class="fas fa-language mr-2"></i>
-                            <?= ucfirst(config('language')) ?>
+                            <a href="https://easyappointments.org" target="_blank">Easy!Appointments</a>
                         </span>
 
-                        <a class="backend-link badge badge-primary" href="<?= site_url('backend'); ?>">
-                            <i class="fas fa-sign-in-alt mr-2"></i>
-                            <?= $this->session->user_id ? lang('backend_section') : lang('login') ?>
-                        </a>
-                    </span>
-                </small>
-            </div>
+                        <span class="footer-options">
+                            <span id="select-language" class="badge badge-secondary">
+                                <i class="fas fa-language mr-2"></i>
+                                <?= ucfirst(config('language')) ?>
+                            </span>
+
+                            <a class="backend-link badge badge-primary" href="<?= site_url('backend'); ?>">
+                                <i class="fas fa-sign-in-alt mr-2"></i>
+                                <?= $this->session->user_id ? lang('backend_section') : lang('login') ?>
+                            </a>
+                        </span>
+                    </small>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

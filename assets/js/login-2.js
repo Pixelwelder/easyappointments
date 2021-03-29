@@ -1,8 +1,6 @@
 $(function () {
     'use strict';
 
-    console.log('HERE WE GO');
-
     var onMessage = function(event){
         if (event.data.type === 'login') {
             $('#username').val(event.data.username);

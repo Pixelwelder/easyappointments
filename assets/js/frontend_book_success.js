@@ -26,6 +26,13 @@ $(document).ready(function () {
         }, handleAuthResult);
     });
 
+    $('#success').on('click', function(event) {
+        console.log('Click');
+        var parent = window.self;
+        parent.opener = window.self;
+        parent.close();
+    })
+
     /**
      * Handle Authorization Result
      *

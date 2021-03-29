@@ -156,6 +156,7 @@ window.FrontendBook = window.FrontendBook || {};
 
             // Check if a specific provider was selected.
             var selectedProviderId = GeneralFunctions.getUrlParameter(location.href, 'provider');
+            console.log('selected provider', selectedProviderId);
 
             if (selectedProviderId && $selectProvider.find('option[value="' + selectedProviderId + '"]').length === 0) {
                 // Select a service of this provider in order to make the provider available in the select box.
@@ -174,19 +175,10 @@ window.FrontendBook = window.FrontendBook || {};
                 $selectProvider
                     .val(selectedProviderId)
                     .trigger('change');
+                $('.button-next').trigger('click');
             }
 
         }
-
-        // Select provider if we've got it.
-        var urlParams = new URLSearchParams(window.location.search);
-        var provider = urlParams.get('provider');
-        if (provider) {
-            $selectProvider
-                .val(selectedProviderId)
-                .trigger('change');
-        }
-        console.log('PROVIDER', provider);
     };
 
     /**
@@ -259,6 +251,7 @@ window.FrontendBook = window.FrontendBook || {};
          * Some special tasks might be performed, depending the current wizard step.
          */
         $('.button-next').on('click', function () {
+            console.log('BUTTON-NEXT CLICK')
             // If we are on the first step and there is not provider selected do not continue with the next step.
             if ($(this).attr('data-step_index') === '1' && !$('#select-provider').val()) {
                 return;
@@ -452,6 +445,12 @@ window.FrontendBook = window.FrontendBook || {};
             setTimeout(function () {
                 FrontendBookApi.applyPreviousUnavailableDates(); // New jQuery UI version will replace the td elements.
             }, 300); // There is no draw event unfortunately.
+        })
+
+        $('#button-cancel').on('click', function (event) {
+            var parent = window.self;
+            parent.opener = window.self;
+            parent.close();
         })
     }
 

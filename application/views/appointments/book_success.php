@@ -27,20 +27,21 @@
             <div>
                 <h3><?= lang('appointment_registered') ?></h3>
 
-                <p>
-                    <?= lang('appointment_details_was_sent_to_you') ?>
-                </p>
+                <?php if (IS_ADMIN || isset($_GET["admin"])): ?>
+                    <p>
+                        <?= lang('appointment_details_was_sent_to_you') ?>
+                    </p>
 
-                <p>
-                    <strong>
-                        <?= lang('check_spam_folder') ?>
-                    </strong>
-                </p>
+                    <p>
+                        <strong>
+                            <?= lang('check_spam_folder') ?>
+                        </strong>
+                    </p>
+                <?php endif; ?>
 
-                <a href="<?= site_url() ?>" class="btn btn-success btn-large">
-                    <i class="fas fa-calendar-alt"></i>
-                    <?= lang('go_to_booking_page') ?>
-                </a>
+                <button id="success" class="btn btn-success btn-large">
+                    Done
+                </button>
 
                 <?php if (config('google_sync_feature')): ?>
                     <button id="add-to-google-calendar" class="btn btn-primary">
@@ -60,12 +61,15 @@
                 <?php endif ?>
             </div>
 
-            <div class="mt-2">
-                <small>
-                    Powered by
-                    <a href="https://easyappointments.org">Easy!Appointments</a>
-                </small>
-            </div>
+
+            <?php if (IS_ADMIN || isset($_GET["admin"])): ?>
+                <div class="mt-2">
+                    <small>
+                        Powered by
+                        <a href="https://easyappointments.org">Easy!Appointments</a>
+                    </small>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

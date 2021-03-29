@@ -22,6 +22,8 @@ window.FrontendBookApi = window.FrontendBookApi || {};
 
     'use strict';
 
+    var isAdmin = new URLSearchParams(window.location.search).has('admin');
+
     var unavailableDatesBackup;
     var selectedDateStringBackup;
     var processingUnavailabilities = false;
@@ -152,6 +154,15 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         }
 
         var formData = JSON.parse($('input[name="post_data"]').val());
+        if (!isAdmin) {
+            var urlParams = new URLSearchParams(window.location.search);
+            var provider = urlParams.get('provider');
+            formData.customer.email = 'TBD@mailinator.com';
+            formData.customer.first_name = 'TBD';
+            formData.customer.last_name = provider;
+            formData.customer.phone_number = 'TBD';
+        }
+        console.log(formData);
 
         var data = {
             csrfToken: GlobalVariables.csrfToken,
