@@ -507,6 +507,48 @@ class Appointments extends EA_Controller {
         $this->output
             ->set_content_type('application/json')
             ->set_output(json_encode($response));
+
+        /* Call Webhook */
+        $url = 'https://coachyard.ngrok.io/coachyard-dev/us-central1/schedule/webhooks';
+//         $data = array(
+//             'key1' => 'value1',
+//             'key2' => 'value2'
+//         );
+
+        // use key 'http' even if you send the request to https://...
+        $options = array(
+            'http' => array(
+                'header'  => "Content-type: application/json\r\n",
+                'method'  => 'POST',
+                'content' => json_encode($appointment)
+            )
+        );
+        $context  = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+
+//         /* eCurl */
+//         $curl = curl_init($url);
+//
+//         /* Data */
+//         $data = [
+//             'name'=>'John Doe',
+//             'email'=>'johndoe@yahoo.com'
+//         ];
+//
+//         /* Set JSON data to POST */
+//         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+//
+//         /* Define content type */
+//         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+//
+//         /* Return json */
+//         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+//
+//         /* make request */
+//         $result = curl_exec($curl);
+//
+//         /* close curl */
+//         curl_close($curl);
     }
 
     /**
