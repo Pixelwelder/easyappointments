@@ -432,6 +432,7 @@ class Appointments extends EA_Controller {
             $manage_mode = filter_var($post_data['manage_mode'], FILTER_VALIDATE_BOOLEAN);
             $appointment = $post_data['appointment'];
             $customer = $post_data['customer'];
+            $item = $post_data['item'];
 
             // Check appointment availability before registering it to the database.
             $appointment['id_users_provider'] = $this->check_datetime_availability();
@@ -508,12 +509,10 @@ class Appointments extends EA_Controller {
             ->set_content_type('application/json')
             ->set_output(json_encode($response));
 
+        // TODO Move this into success block.
         /* Call Webhook */
+        $appointment['item'] = $item;
         $url = 'https://coachyard.ngrok.io/coachyard-dev/us-central1/schedule/webhooks';
-//         $data = array(
-//             'key1' => 'value1',
-//             'key2' => 'value2'
-//         );
 
         // use key 'http' even if you send the request to https://...
         $options = array(
@@ -525,30 +524,6 @@ class Appointments extends EA_Controller {
         );
         $context  = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
-
-//         /* eCurl */
-//         $curl = curl_init($url);
-//
-//         /* Data */
-//         $data = [
-//             'name'=>'John Doe',
-//             'email'=>'johndoe@yahoo.com'
-//         ];
-//
-//         /* Set JSON data to POST */
-//         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-//
-//         /* Define content type */
-//         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
-//
-//         /* Return json */
-//         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-//
-//         /* make request */
-//         $result = curl_exec($curl);
-//
-//         /* close curl */
-//         curl_close($curl);
     }
 
     /**

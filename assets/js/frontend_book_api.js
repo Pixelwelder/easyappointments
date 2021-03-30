@@ -157,10 +157,13 @@ window.FrontendBookApi = window.FrontendBookApi || {};
         if (!isAdmin) {
             var urlParams = new URLSearchParams(window.location.search);
             var provider = urlParams.get('provider');
+            var item = urlParams.get('item');
+            console.log(item);
             formData.customer.email = 'TBD@mailinator.com';
             formData.customer.first_name = 'TBD';
             formData.customer.last_name = provider;
             formData.customer.phone_number = 'TBD';
+            formData.item = item;
         }
         console.log(formData);
 
