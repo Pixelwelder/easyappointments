@@ -432,6 +432,7 @@ class Appointments extends EA_Controller {
             $manage_mode = filter_var($post_data['manage_mode'], FILTER_VALIDATE_BOOLEAN);
             $appointment = $post_data['appointment'];
             $customer = $post_data['customer'];
+            $course = $post_data['course'];
             $item = $post_data['item'];
 
             // Check appointment availability before registering it to the database.
@@ -512,6 +513,7 @@ class Appointments extends EA_Controller {
         // TODO Move this into success block.
         /* Call Webhook */
         $appointment['item'] = $item;
+        $appointment['course'] = $course;
         $url = 'https://coachyard.ngrok.io/coachyard-dev/us-central1/schedule/webhooks';
 
         // use key 'http' even if you send the request to https://...
