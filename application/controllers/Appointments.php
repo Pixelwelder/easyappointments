@@ -515,7 +515,7 @@ class Appointments extends EA_Controller {
         $appointment['item'] = $item;
         $appointment['course'] = $course;
 //         $url = 'https://coachyard.ngrok.io/coachyard-dev/us-central1/schedule/webhooks';
-        $url = 'https://us-central1-coachyard-dev.cloudfunctions.net/us-central1/schedule/webhooks';
+        $url = 'https://us-central1-coachyard-dev.cloudfunctions.net/schedule/webhooks';
 
         // use key 'http' even if you send the request to https://...
         $options = array(
