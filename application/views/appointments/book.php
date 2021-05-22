@@ -33,7 +33,7 @@
 
                 <?php if (IS_ADMIN || isset($_GET["admin"])): ?>
                     <div id="steps">
-                        <div id="step-1" class="book-step active-step"
+                        <div id="step-1" class="book-step"
                              data-tippy-content="<?= lang('service_and_provider') ?>">
                             <strong>1</strong>
                         </div>
