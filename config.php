@@ -61,11 +61,11 @@ class Config {
     // GOOGLE CALENDAR SYNC
     // ------------------------------------------------------------------------
 
-    const GOOGLE_SYNC_FEATURE   = FALSE; // You can optionally enable the Google Sync feature.
-    const GOOGLE_PRODUCT_NAME   = '';
-    const GOOGLE_CLIENT_ID      = '';
-    const GOOGLE_CLIENT_SECRET  = '';
-    const GOOGLE_API_KEY        = '';
+    const GOOGLE_SYNC_FEATURE   = TRUE; // You can optionally enable the Google Sync feature.
+    const GOOGLE_PRODUCT_NAME   = 'Coachyard-GCal';
+    const GOOGLE_CLIENT_ID      = '28761441816-9pqn9jfc0890vv13t0g0ddrhcro22cgo.apps.googleusercontent.com';
+    const GOOGLE_CLIENT_SECRET  = 'TGLYu3c6Lpescg7hsf3hiEwn';
+    const GOOGLE_API_KEY        = 'AIzaSyDfXWXJcFb3ENBAKgDTHBum4XQJmi9G8sI';
 }
 
 /* End of file config.php */
